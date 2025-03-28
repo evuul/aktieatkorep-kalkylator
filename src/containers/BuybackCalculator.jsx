@@ -1,20 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { InputForm } from '../components/InputForm';
 import { Chart } from '../components/Chart';
 import { DividendChart } from '../components/DividendChart';
 import { SharesChart } from '../components/SharesChart';
 import UserHoldingsForm from '../components/UserHoldingsForm';
 import ResultsTable from '../components/ResultsTable';
+import MoneyCounter from '../components/MoneyCounter';
+import MonthlyEarningsChart from "../components/MonthlyEarningsChart";
+import BuybackVisualizer from '../components/BuybackVisualizer';  // BuybackVisualizer är den som använder JSON
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/charts.css';
 
-export const BuybackCalculator = () => {
+const BuybackCalculator = () => {
   const [data, setData] = useState({
     stockPrice: 770,
     shares: 211833204,
     buyback: 5.7,
     dividend: 32,
-    growth: 20,
+    growth: 15,
   });
 
   const [userHoldings, setUserHoldings] = useState({
@@ -83,7 +86,9 @@ export const BuybackCalculator = () => {
 
   return (
     <div className="container">
-      <h1 className="text-center my-4">Aktieåterköps Kalkylator</h1>
+      <h1 className="text-center my-4">Dashboard Evolution</h1>
+
+      <MoneyCounter />
 
       <InputForm data={data} onInputChange={handleInputChange} onCalculate={handleCalculate} />
       <UserHoldingsForm onHoldingsChange={handleHoldingsChange} />
@@ -99,15 +104,20 @@ export const BuybackCalculator = () => {
           <div key={index} className="calculation-box">
             <h5>{yearData.year}</h5>
             <p><strong>Återköpsbelopp:</strong> {yearData.buybackAmount} miljarder</p>
-            <p><strong>Utdelningspot:</strong> {yearData.dividendPot} miljarder</p>
-            <p><strong>Kvarvarande aktier:</strong> {Math.round(yearData.remainingShares)}</p>
+            <p><strong>Utdelningskassa:</strong> {yearData.dividendPot} miljarder</p>
+            <p><strong>Kvarvarande aktier:</strong> {Math.round(yearData.remainingShares)}st</p>
             <p><strong>Aktiepris vid återköp:</strong> {Math.round(yearData.buybackPrice)} kr</p>
             <p><strong>Utdelning per aktie:</strong> {Math.round(yearData.dividendPerShare)} kr</p>
           </div>
         ))}
       </div>
 
+      {/* Den här komponenten hanterar nu JSON-filen för buyback-data */}
+      <BuybackVisualizer />
       <ResultsTable results={results.yearlyResults} userHoldings={userHoldings} />
+      <MonthlyEarningsChart />  
     </div>
   );
 };
+
+export default BuybackCalculator;

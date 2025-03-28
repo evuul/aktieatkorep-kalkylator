@@ -2,6 +2,35 @@ body {
   color :#000000;
   background-color:rgb(255, 255, 255)
 }
+
+/* Container för alla form-group */
+.form-group-container {
+  display: flex;
+  flex-wrap: wrap; /* Detta gör att elementen bryts om de inte får plats */
+  gap: 20px; /* Skapar ett avstånd mellan fälten */
+  justify-content: center; /* Centrerar fälten horisontellt */
+  margin-bottom: 20px;
+}
+
+/* För varje form-group */
+.form-group {
+  flex: 1 1 220px; /* Fälten tar upp lika mycket plats, men kan krympa eller växa */
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  margin-bottom: 5px; /* Lägger till ett litet avstånd mellan label och input */
+  font-weight: bold; /* Gör texten fetstil */
+}
+
+/* Stilar för input-fälten (kommer från Bootstrap, men kan anpassas) */
+.form-control {
+  padding: 10px;
+  font-size: 14px;
+}
+
 .holdings-form {
   display: flex;
   flex-direction: column;
@@ -140,6 +169,87 @@ body {
   font-size: 1rem;
   margin-bottom: 5px;
 }
+
+.buyback-visualizer {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+}
+
+.buyback-visualizer h3 {
+  text-align: center;
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.progress-container {
+  margin-bottom: 20px;
+}
+
+/* Progress bar wrapper */
+.progress-bar-wrapper {
+  width: 100%;
+  height: 30px;
+  background-color: #f3f3f3;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+/* The actual progress bar */
+.progress-bar {
+  height: 100%;
+  background-color: green; /* Här definierar vi färgen */
+  width: 0%;
+  transition: width 0.5s ease; /* Smidig övergång */
+}
+
+.info-boxes {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.info-box {
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 30%;
+  text-align: center;
+}
+
+.info-box.win {
+  border: 2px solid #28a745;
+  background-color: #e8f5e8;
+  color: #28a745;
+}
+
+.info-box.loss {
+  border: 2px solid #dc3545;
+  background-color: #f8d7da55;
+  color: #dc3545;
+}
+
+.info-box p {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+@media (max-width: 768px) {
+  .info-boxes {
+    flex-direction: column;
+    align-items: center;
+  }
+  .info-box {
+    width: 80%;
+    margin-bottom: 15px;
+  }
+}
+
 
 @media (max-width: 768px) {
   /* På mindre skärmar kan vi ändra layouten så att det blir en kolumn istället */
