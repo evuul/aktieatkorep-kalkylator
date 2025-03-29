@@ -7,7 +7,8 @@ import UserHoldingsForm from '../components/UserHoldingsForm';
 import ResultsTable from '../components/ResultsTable';
 import MoneyCounter from '../components/MoneyCounter';
 import MonthlyEarningsChart from "../components/MonthlyEarningsChart";
-import BuybackVisualizer from '../components/BuybackVisualizer';  // BuybackVisualizer är den som använder JSON
+import BuybackVisualizer from '../components/BuybackVisualizer';
+import LivePlayers from '../components/LivePlayers';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/charts.css';
 
@@ -87,7 +88,7 @@ const BuybackCalculator = () => {
   return (
     <div className="container">
       <h1 className="text-center my-4">Dashboard Evolution</h1>
-
+      <LivePlayers />
       <MoneyCounter />
 
       <InputForm data={data} onInputChange={handleInputChange} onCalculate={handleCalculate} />
