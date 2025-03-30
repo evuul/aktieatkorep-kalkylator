@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "../styles/charts.css"; // För stilning
 
+const UPDATE_INTERVAL = 900; // 15 minuter i sekunder
+
 const LivePlayers = () => {
   const [playerCount, setPlayerCount] = useState(null);
-  const [lastUpdated, setLastUpdated] = useState(
-    new Date().toLocaleTimeString("sv-SE", {
-      hour: "2-digit",
-      minute: "2-digit",
-    })
-  );
+  const [lastUpdated, setLastUpdated] = useState(null);
+  const [countdown, setCountdown] = useState(UPDATE_INTERVAL);
 
   const fetchPlayerData = async () => {
     try {
@@ -17,38 +15,49 @@ const LivePlayers = () => {
         throw new Error(`HTTP-fel! Status: ${response.status}`);
       }
       const data = await response.json();
-      
-      // Uppdatera state med hämtad data
+
       setPlayerCount(data.playersCount || "Okänt antal spelare");
-      setLastUpdated(
-        new Date().toLocaleTimeString("sv-SE", {
-          hour: "2-digit",
-          minute: "2-digit",
-        })
-      );
+      setLastUpdated(new Date().toLocaleTimeString("sv-SE", { hour: "2-digit", minute: "2-digit" }));
+
+      setCountdown(UPDATE_INTERVAL); // 🔥 ÅTERSTÄLL TIMER TILL 15 MINUTER VID NY UPPDATERING
     } catch (error) {
       console.error("Fel vid hämtning av data:", error);
     }
   };
 
   useEffect(() => {
-    fetchPlayerData(); // Hämta data direkt vid inladdning
+    fetchPlayerData(); // Hämta data vid sidladdning
 
-    // Uppdatera datan varje minut (60000 ms)
-    const interval = setInterval(fetchPlayerData, 900000);
+    const updateInterval = setInterval(fetchPlayerData, UPDATE_INTERVAL * 1000); // Synkad uppdatering
+    const countdownInterval = setInterval(() => {
+      setCountdown((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
 
-    return () => clearInterval(interval); // Rensa intervallet vid avmontering
+    return () => {
+      clearInterval(updateInterval);
+      clearInterval(countdownInterval);
+    };
   }, []);
+
+  // Format för att visa timer som "MM:SS"
+  const formatCountdown = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${minutes}:${secs.toString().padStart(2, "0")}`;
+  };
 
   return (
     <div className="live-players">
       <h3>Live Spelare</h3>
       <div className="player-info-box">
-        <p>
+        <p className="player-count">
           <strong>Antal spelare:</strong> {playerCount !== null ? playerCount : "Laddar..."}
         </p>
-        <p>
-          <strong>Senast uppdaterad:</strong> {lastUpdated}
+        <p className="last-updated">
+          <strong>Senast uppdaterad:</strong> {lastUpdated || "Laddar..."}
+        </p>
+        <p className="countdown">
+          <strong>Nästa uppdatering om:</strong> {formatCountdown(countdown)}
         </p>
       </div>
     </div>
@@ -56,28 +65,3 @@ const LivePlayers = () => {
 };
 
 export default LivePlayers;
-
-// https://hook.eu2.make.com/fcf2dj4sq00t5hwjdzh1rhyuwravqodn
-
-  /*useEffect(() => {
-    async function fetchData() {
-      const headers = new Headers()
-      headers.set('authorization', "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBbGV4YW5kZXIuZWtAbGl2ZS5zZSIsImlhdCI6MTc0MzE2NzkxMCwiZXhwIjoxNzQzNzcyNzEwfQ.P6NgU37IKNBXO_EMjpBOCTqgasPMwjmx2qeEYCIZL3c")
-      const respond = await fetch(
-        "https://generous-shelagh-khalid-organization-eb1285b3.koyeb.app/api/players/current",
-        {
-          headers: headers,
-          // referrer: "https://www.evoinsights.io/",
-          // referrerPolicy: "strict-origin-when-cross-origin",
-          // body: null,
-          // method: "GET",
-          // // mode: "cors",
-          // credentials: "include",
-        }
-      );
-      const data = await respond.json();
-      setPlayerCount(data)
-      console.log(data);
-    }
-    fetchData
-  }, []); */
