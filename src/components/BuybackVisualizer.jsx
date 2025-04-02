@@ -139,24 +139,29 @@ const filterData = (data, period) => {
 
       {/* Återköpta aktier och Vinst/Förlust */}
       <div className="info-boxes">
-        <div className="info-box">
-          <p><strong>Återköpta aktier:</strong> {sharesBought.toLocaleString()}</p>
-          <p><strong>Snittkurs:</strong> {averagePrice ? averagePrice.toFixed(2) : 'Ingen data'} SEK</p>
-        </div>
+  <div className="info-box">
+    <p><strong>Återköpta aktier:</strong> {sharesBought.toLocaleString()} st</p>
+    <p><strong>Snittkurs:</strong> {averagePrice ? Math.round(averagePrice) : 'Ingen data'} SEK</p>
+  </div>
 
-        <div className={`info-box ${profitLossClass}`}>
-          <p><strong>Vinst/Förlust:</strong> 
-            {profitLoss !== null ? (
-              profitLoss >= 0 ? 
-              `${profitLoss.toFixed(2)} SEK Vinst` : 
-              `${Math.abs(profitLoss).toFixed(2)} SEK Förlust`
-            ) : "Ingen data tillgänglig"}
-          </p>
-        </div>
+  <div className={`info-box ${profitLossClass}`}>
+  <p><strong>Vinst/Förlust:</strong> 
+    <br /> {/* Radbrytning här */}
+    {profitLoss !== null ? (
+      profitLoss >= 0 ? 
+      `${(Math.round(profitLoss) / 1000000).toLocaleString()} miljoner SEK Vinst` : 
+      `${Math.abs(Math.round(profitLoss) / 1000000).toLocaleString()} miljoner SEK Förlust`
+    ) : "Ingen data tillgänglig"}
+  </p>
+</div>
 
-        <div className="info-box">
-          <p><strong>Kvarvarande kassa:</strong> {remainingCashSEK ? (remainingCashSEK - totalSpent).toLocaleString() : "..."} SEK</p>
-        </div>
+<div className="info-box">
+  <p>
+    <strong>Kvarvarande kassa:</strong> 
+    <br /> {/* Radbrytning här */}
+    {remainingCashSEK ? ((remainingCashSEK - totalSpent) / 1000000).toLocaleString() : "..."} miljoner SEK
+  </p>
+</div>
       </div>
 
       {/* Manuell uppdatering av nuvarande aktiekurs */}

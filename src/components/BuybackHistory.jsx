@@ -113,21 +113,26 @@ const BuybackHistory = () => {
       </div>
       <div className="info-boxes">
         <div className="info-box">
-          <p><strong>Återköpta aktier:</strong> {sharesBought.toLocaleString()}</p>
+          <p><strong>Återköpta aktier:</strong> {sharesBought.toLocaleString()} st</p>
           <p><strong>Snittkurs:</strong> {averagePrice ? averagePrice.toFixed(2) : 'Ingen data'} SEK</p>
         </div>
         <div className={`info-box ${profitLoss >= 0 ? 'win' : 'loss'}`}>
-          <p><strong>Vinst/Förlust:</strong> 
-            {profitLoss !== null ? (
-              profitLoss >= 0 ? 
-              `${Math.round(profitLoss).toLocaleString()} SEK Vinst` : 
-              `${Math.abs(Math.round(profitLoss)).toLocaleString()} SEK Förlust`
-            ) : "Ingen data tillgänglig"}
-          </p>
+        <p><strong>Vinst/Förlust:</strong> 
+        <br /> {/* Radbrytning här */}
+        {profitLoss !== null ? (
+        profitLoss >= 0 ? 
+        `${(Math.round(profitLoss) / 1000000).toLocaleString()} miljoner SEK Vinst` : 
+        `${Math.abs(Math.round(profitLoss) / 1000000).toLocaleString()} miljoner SEK Förlust`
+        ) : "Ingen data tillgänglig"}
+        </p>
         </div>
-        <div className="info-box">
-          <p><strong>Totalt spenderat på återköp:</strong> {totalSpent ? totalSpent.toLocaleString() : 'Ingen data'} SEK</p>
-        </div>
+    <div className="info-box">
+    <p>
+    <strong>Totalt spenderat på återköp:</strong> 
+    <br /> {/*Radbrytning */}
+    {totalSpent ? (totalSpent / 1000000).toLocaleString() : 'Ingen data'} miljoner SEK
+    </p>
+    </div>
       </div>
       <div className="update-stock-price">
         <label htmlFor="stockPrice">Aktuell aktiekurs (SEK): </label>

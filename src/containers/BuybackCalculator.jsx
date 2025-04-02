@@ -13,6 +13,7 @@ import AnalyzeChart from '../components/AnalyzeChart';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/charts.css';
 import BuybackHistory from '../components/BuybackHistory';
+import PeModel from '../components/PeModel';
 
 const BuybackCalculator = () => {
   const [data, setData] = useState({
@@ -122,6 +123,7 @@ const BuybackCalculator = () => {
       <BuybackHistory />
       {/* <ResultsTable results={results.yearlyResults} userHoldings={userHoldings} /> */}
       {/* <MonthlyEarningsChart />   */}
+      {/* <PeModel /> */}
     </div>
   );
 };
