@@ -13,6 +13,10 @@ const BuybackHistory = () => {
   const [filterPeriod, setFilterPeriod] = useState('day');
   const maxSharesAllowed = 20394044;
   const totalShares = 211833204; // Ersätt med det faktiska totala antalet aktier
+  const getPercentageColor = (percentage) => {
+      return 'green'; // Grön för > 50%
+  };
+
 
   const percentageBought = (sharesBought / totalShares) * 100;
 
@@ -139,9 +143,14 @@ const BuybackHistory = () => {
   
       <div className="info-boxes">
         <div className="info-box">
-           <p><strong>Återköpta aktier:</strong> {sharesBought.toLocaleString()} st</p>
+          <p><strong>Återköpta aktier:</strong> {sharesBought.toLocaleString()} st</p>
           <p><strong>Snittkurs:</strong> {averagePrice ? averagePrice.toFixed(2) : 'Ingen data'} SEK</p>
-          <p><strong>Andel av totala aktier:</strong> {percentageBought.toFixed(2)}%</p>
+          <p>
+            <strong>Andel av totala aktier:</strong>
+            <span style={{ color: getPercentageColor(percentageBought) }}>
+              {percentageBought.toFixed(2)}%
+            </span>
+          </p>
         </div>
         <div className={`info-box ${profitLoss >= 0 ? 'win' : 'loss'}`}>
           <p><strong>Vinst/Förlust:</strong> 
