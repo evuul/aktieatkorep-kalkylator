@@ -11,7 +11,7 @@ const AnalyzeChart = () => {
 
     const fetchFinancialReports = async () => {
         try {
-            const response = await fetch("/data/financialReports.json");
+            const response = await fetch("./data/financialReports.json");
             if (!response.ok) {
                 throw new Error(`HTTP-fel! Status: ${response.status}`);
             }

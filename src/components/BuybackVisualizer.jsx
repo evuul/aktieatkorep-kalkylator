@@ -31,7 +31,7 @@ const BuybackVisualizer = () => {
   // Hämta JSON-data för återköpta aktier
   const fetchBuybackData = async () => {
     try {
-      const response = await fetch("/data/buybackData.json");
+      const response = await fetch("./data/buybackData.json");
       if (!response.ok) throw new Error(`HTTP-fel! Status: ${response.status}`);
       const data = await response.json();
       if (!Array.isArray(data)) throw new Error("Felaktig JSON-struktur: Förväntade en array");

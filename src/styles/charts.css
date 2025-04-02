@@ -243,6 +243,39 @@ body {
   font-size: 1.2em;
 }
 
+.share-limit-info {
+  background-color: #f0f8ff; /* Ljusblå bakgrund */
+  border: 1px solid #add8e6; /* Ljusblå kant */
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.share-limit-info h3 {
+  color: #4682b4; /* Mörkblå rubrik */
+  margin-bottom: 10px;
+}
+
+.share-limit-info p {
+  line-height: 1.6;
+}
+
+.max-shares {
+  color: #008b8b; /* Mörk turkos för max antal */
+  font-weight: bold;
+}
+
+.remaining-shares {
+  color: #228b22; /* Mörkgrön för kvarvarande antal */
+  font-weight: bold;
+}
+
+.remaining-cost {
+  color: #b8860b; /* Mörk gyllenbrun för kostnad */
+  font-weight: bold;
+}
+
+
 .pe-model-container {
   font-family: Arial, sans-serif;
   padding: 20px;

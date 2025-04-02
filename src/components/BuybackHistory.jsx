@@ -11,10 +11,14 @@ const BuybackHistory = () => {
   const [profitLoss, setProfitLoss] = useState(null);
   const [currentStockPrice, setCurrentStockPrice] = useState(800);
   const [filterPeriod, setFilterPeriod] = useState('day');
+  const maxSharesAllowed = 20394044;
+  const totalShares = 211833204; // Ersätt med det faktiska totala antalet aktier
+
+  const percentageBought = (sharesBought / totalShares) * 100;
 
   const fetchOldBuybackData = async () => {
     try {
-      const response = await fetch("/data/oldBuybackData.json");
+      const response = await fetch("./data/oldBuybackData.json");
       if (!response.ok) throw new Error(`HTTP-fel! Status: ${response.status}`);
       const data = await response.json();
       if (!Array.isArray(data)) throw new Error("Felaktig JSON-struktur: Förväntade en array");
@@ -26,7 +30,7 @@ const BuybackHistory = () => {
 
   const fetchBuybackData = async () => {
     try {
-      const response = await fetch("/data/buybackData.json");
+      const response = await fetch("./data/buybackData.json");
       if (!response.ok) throw new Error(`HTTP-fel! Status: ${response.status}`);
       const data = await response.json();
       if (!Array.isArray(data)) throw new Error("Felaktig JSON-struktur: Förväntade en array");
@@ -98,6 +102,27 @@ const BuybackHistory = () => {
 
   return (
     <div className="buyback-history">
+      {/* Ny sektion: Aktieinnehavsgräns (flyttad högst upp) */}
+      <div className="share-limit-info">
+        <h3>Aktieinnehavsgräns</h3>
+        <p>
+          <strong>Maximalt antal aktier tillåtet:</strong>{" "}
+          <span className="max-shares">
+            {maxSharesAllowed.toLocaleString()} st
+          </span>
+          <br />
+          <strong>Aktier kvar till gräns:</strong>{" "}
+          <span className="remaining-shares">
+            {(maxSharesAllowed - sharesBought).toLocaleString()} st
+          </span>
+          <br />
+          <strong>Skulle kosta:</strong>{" "}
+          <span className="remaining-cost">
+            {((maxSharesAllowed - sharesBought) * currentStockPrice / 1000000).toLocaleString()} miljoner SEK
+          </span>
+        </p>
+      </div>
+
       <h3>Historik för Aktieåterköp</h3>
       <div>
         <label htmlFor="filterPeriod">Välj tidsperiod:</label>
@@ -111,29 +136,32 @@ const BuybackHistory = () => {
           <option value="year">År</option>
         </select>
       </div>
+  
       <div className="info-boxes">
         <div className="info-box">
-          <p><strong>Återköpta aktier:</strong> {sharesBought.toLocaleString()} st</p>
+           <p><strong>Återköpta aktier:</strong> {sharesBought.toLocaleString()} st</p>
           <p><strong>Snittkurs:</strong> {averagePrice ? averagePrice.toFixed(2) : 'Ingen data'} SEK</p>
+          <p><strong>Andel av totala aktier:</strong> {percentageBought.toFixed(2)}%</p>
         </div>
         <div className={`info-box ${profitLoss >= 0 ? 'win' : 'loss'}`}>
-        <p><strong>Vinst/Förlust:</strong> 
-        <br /> {/* Radbrytning här */}
-        {profitLoss !== null ? (
-        profitLoss >= 0 ? 
-        `${(Math.round(profitLoss) / 1000000).toLocaleString()} miljoner SEK Vinst` : 
-        `${Math.abs(Math.round(profitLoss) / 1000000).toLocaleString()} miljoner SEK Förlust`
-        ) : "Ingen data tillgänglig"}
-        </p>
+          <p><strong>Vinst/Förlust:</strong> 
+          <br /> {/* Radbrytning här */}
+          {profitLoss !== null ? (
+            profitLoss >= 0 
+            ? `${(Math.round(profitLoss) / 1000000).toLocaleString()} miljoner SEK Vinst` 
+            : `${Math.abs(Math.round(profitLoss) / 1000000).toLocaleString()} miljoner SEK Förlust`
+          ) : "Ingen data tillgänglig"}
+          </p>
         </div>
-    <div className="info-box">
-    <p>
-    <strong>Totalt spenderat på återköp:</strong> 
-    <br /> {/*Radbrytning */}
-    {totalSpent ? (totalSpent / 1000000).toLocaleString() : 'Ingen data'} miljoner SEK
-    </p>
-    </div>
+        <div className="info-box">
+          <p>
+            <strong>Totalt spenderat på återköp:</strong> 
+            <br /> {/*Radbrytning */}
+            {totalSpent ? (totalSpent / 1000000).toLocaleString() : 'Ingen data'} miljoner SEK
+          </p>
+        </div>
       </div>
+  
       <div className="update-stock-price">
         <label htmlFor="stockPrice">Aktuell aktiekurs (SEK): </label>
         <input
@@ -143,6 +171,7 @@ const BuybackHistory = () => {
           onChange={(e) => setCurrentStockPrice(Number(e.target.value))}
         />
       </div>
+  
       <div className="buyback-chart">
         <h4 style={{ textAlign: 'center' }}>
           Antal Återköpta Aktier per {filterPeriod === 'day' ? 'Dag' : filterPeriod === 'month' ? 'Månad' : 'År'}
