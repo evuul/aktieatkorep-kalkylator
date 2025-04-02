@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import { InputForm } from '../components/InputForm';
-import { Chart } from '../components/Chart';
-import { DividendChart } from '../components/DividendChart';
-import { SharesChart } from '../components/SharesChart';
-import UserHoldingsForm from '../components/UserHoldingsForm';
-import ResultsTable from '../components/ResultsTable';
+// import { InputForm } from '../components/InputForm';
+// import { Chart } from '../components/Chart';
+// import { DividendChart } from '../components/DividendChart';
+// import { SharesChart } from '../components/SharesChart';
+// import UserHoldingsForm from '../components/UserHoldingsForm';
+// import ResultsTable from '../components/ResultsTable';
 import MoneyCounter from '../components/MoneyCounter';
 import MonthlyEarningsChart from "../components/MonthlyEarningsChart";
 import BuybackVisualizer from '../components/BuybackVisualizer';
 import LivePlayers from '../components/LivePlayers';
+import AnalyzeChart from '../components/AnalyzeChart';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/charts.css';
+import BuybackHistory from '../components/BuybackHistory';
 
 const BuybackCalculator = () => {
   const [data, setData] = useState({
@@ -21,23 +23,23 @@ const BuybackCalculator = () => {
     growth: 15,
   });
 
-  const [userHoldings, setUserHoldings] = useState({
-    userShares: 0,
-    userGAV: 0,
-  });
+  // const [userHoldings, setUserHoldings] = useState({
+  //   userShares: 0,
+  //   userGAV: 0,
+  // });
 
-  const [chartData, setChartData] = useState([]);
-  const [dividendData, setDividendData] = useState([]);
+  // const [chartData, setChartData] = useState([]);
+  // const [dividendData, setDividendData] = useState([]);
   const [results, setResults] = useState({ sharesData: [], dividendData: [], yearlyResults: [] });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setData({ ...data, [name]: parseFloat(value) || 0 });
-  };
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setData({ ...data, [name]: parseFloat(value) || 0 });
+  // };
 
-  const handleHoldingsChange = (holdings) => {
-    setUserHoldings(holdings);
-  };
+  // const handleHoldingsChange = (holdings) => {
+  //   setUserHoldings(holdings);
+  // };
 
   const handleCalculate = () => {
     let shares = data.shares;
@@ -88,17 +90,17 @@ const BuybackCalculator = () => {
   return (
     <div className="container">
       <h1 className="text-center my-4">Dashboard Evolution</h1>
-      <LivePlayers />
+      {/* <LivePlayers /> */}
       <MoneyCounter />
 
-      <InputForm data={data} onInputChange={handleInputChange} onCalculate={handleCalculate} />
-      <UserHoldingsForm onHoldingsChange={handleHoldingsChange} />
+      {/* <InputForm data={data} onInputChange={handleInputChange} onCalculate={handleCalculate} /> */}
+      {/* <UserHoldingsForm onHoldingsChange={handleHoldingsChange} /> */}
 
-      <div className="charts-container">
+      {/* <div className="charts-container">
         <div className="chart-wrapper"><Chart data={chartData} /></div>
         <div className="chart-wrapper"><DividendChart data={dividendData} /></div>
         <div className="chart-wrapper"><SharesChart data={results.sharesData} /></div>
-      </div>
+      </div> */}
 
       <div className="calculations">
         {results.yearlyResults.map((yearData, index) => (
@@ -113,10 +115,13 @@ const BuybackCalculator = () => {
         ))}
       </div>
 
+      <AnalyzeChart />
+
       {/* Den här komponenten hanterar nu JSON-filen för buyback-data */}
       <BuybackVisualizer />
-      <ResultsTable results={results.yearlyResults} userHoldings={userHoldings} />
-      <MonthlyEarningsChart />  
+      <BuybackHistory />
+      {/* <ResultsTable results={results.yearlyResults} userHoldings={userHoldings} /> */}
+      {/* <MonthlyEarningsChart />   */}
     </div>
   );
 };

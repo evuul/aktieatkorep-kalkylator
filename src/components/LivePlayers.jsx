@@ -8,15 +8,108 @@ const LivePlayers = () => {
   const [lastUpdated, setLastUpdated] = useState(null);
   const [countdown, setCountdown] = useState(UPDATE_INTERVAL);
 
+  const paylode = {
+    "org_id": "o_GOI88Az",
+    "project_id": "proj_RMsr7M2",
+    "steps": [
+        {
+            "namespace": "get_request",
+            "props": {
+                "http": null,
+                "httpRequest": {
+                    "auth": {
+                        "type": "bearer",
+                        "username": "authorization",
+                        "password": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBbGV4YW5kZXIuZWtAbGl2ZS5zZSIsImlhdCI6MTc0MzE2NzkxMCwiZXhwIjoxNzQzNzcyNzEwfQ.P6NgU37IKNBXO_EMjpBOCTqgasPMwjmx2qeEYCIZL3c",
+                        "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJBbGV4YW5kZXIuZWtAbGl2ZS5zZSIsImlhdCI6MTc0MzE2NzkxMCwiZXhwIjoxNzQzNzcyNzEwfQ.P6NgU37IKNBXO_EMjpBOCTqgasPMwjmx2qeEYCIZL3c"
+                    },
+                    "body": {
+                        "contentType": "application/json",
+                        "fields": [
+                            {
+                                "name": "",
+                                "value": "",
+                                "disabled": true
+                            }
+                        ],
+                        "mode": "fields",
+                        "type": "fields"
+                    },
+                    "headers": [
+                        {
+                            "name": "",
+                            "value": "",
+                            "disabled": true
+                        }
+                    ],
+                    "method": "GET",
+                    "params": [
+                        {
+                            "name": "",
+                            "value": "",
+                            "disabled": true
+                        }
+                    ],
+                    "url": "https://generous-shelagh-khalid-organization-eb1285b3.koyeb.app/api/players/current",
+                    "tab": "Body"
+                },
+                "includeHeaders": null
+            }
+        },
+        {
+            "namespace": "return_http_response",
+            "props": {
+                "http": null,
+                "resStatusCode": 200,
+                "resHeaders": {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+                    "Access-Control-Allow-Headers": "Content-Type"
+                },
+                "resBody": "{{steps.code.$return_value}}"
+            }
+        }
+    ],
+    "triggers": [
+        {
+            "props": {
+                "emitShape": "BODY_ONLY",
+                "responseType": "customResponse",
+                "domains": [],
+                "authorization": "none",
+                "discardAutomatedRequests": null,
+                "staticResponseStatus": 200,
+                "staticResponseHeaders": {},
+                "staticResponseBody": "",
+                "bearerToken": ""
+            }
+        }
+    ],
+    "settings": {
+        "name": "API LIVE PLAYERS",
+        "auto_deploy": true
+    }
+}
+
   const fetchPlayerData = async () => {
     try {
-      const response = await fetch("https://hook.eu2.make.com/igw8o8m41m1sth8b8eaplka5qut5ss30");
+      const response = await fetch("https://eok5qxjsyfl2mj2.m.pipedream.net", {
+        method: "Post",
+        body: paylode,
+        headers: {
+          Authorization: "Bearer 10968afa1e99e122efc86e81bde466a6"
+        }
+      });
       if (!response.ok) {
         throw new Error(`HTTP-fel! Status: ${response.status}`);
       }
       const data = await response.json();
 
-      setPlayerCount(data.playersCount || "Okänt antal spelare");
+      // console.log({data});
+      
+
+      setPlayerCount(data.playerCount || "Okänt antal spelare");
       setLastUpdated(new Date().toLocaleTimeString("sv-SE", { hour: "2-digit", minute: "2-digit" }));
 
       setCountdown(UPDATE_INTERVAL); // 🔥 ÅTERSTÄLL TIMER TILL 15 MINUTER VID NY UPPDATERING

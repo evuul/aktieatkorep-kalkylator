@@ -208,14 +208,6 @@
       "Procent_dagsvolym": 0.73
     },
     {
-        "Datum": "2025-03-19",
-        "Antal_aktier": 0,
-        "Transaktionsvärde": 0,
-        "Snittkurs": 0.00,
-        "Dagsvolym": 678542,
-        "Procent_dagsvolym": 0
-    },
-    {
         "Datum": "2025-03-20",
         "Antal_aktier": 12361,
         "Transaktionsvärde": 9856141,
@@ -230,5 +222,13 @@
         "Snittkurs": 788.67,
         "Dagsvolym": 2003385,
         "Procent_dagsvolym": 8.26
-    }
-]
+    },
+    {
+      "Datum": "2025-03-24",
+      "Antal_aktier": 178880,
+      "Transaktionsvärde": 141485493,
+      "Snittkurs": 790.95,
+      "Dagsvolym": 2003385,
+      "Procent_dagsvolym": 8.26
+    } 
+  ]
