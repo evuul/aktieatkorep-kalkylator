@@ -3,6 +3,35 @@ body {
   background-color: #121212;
 }
 
+.live-players-containerMockup {
+  background-color: #f0f8ff; /* Ljusblå bakgrund */
+  border: 1px solid #add8e6; /* Ljusblå kant */
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px auto;
+  width: 300px; /* Justera bredden efter behov */
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Lätt skugga för djup */
+}
+
+.live-players-containerMockup h3 {
+  color: #4682b4; /* Mörkblå rubrik */
+  margin-bottom: 15px;
+}
+
+.player-info-box {
+  background-color: white; /* Vit bakgrund för info-box */
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Lätt skugga för info-box */
+}
+
+.player-count {
+  font-size: 1.2em;
+  font-weight: 600; /* Lite mindre fetstil */
+  color: #263238; /* Mörkare grå för text */
+}
+
 /* Container för alla form-group */
 .form-group-container {
   display: flex;

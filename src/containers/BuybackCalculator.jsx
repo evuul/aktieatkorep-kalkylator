@@ -14,6 +14,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/charts.css';
 import BuybackHistory from '../components/BuybackHistory';
 import PeModel from '../components/PeModel';
+import LivePlayersMockup from '../components/LivePlayersMockup';
 
 const BuybackCalculator = () => {
   const [data, setData] = useState({
@@ -91,6 +92,7 @@ const BuybackCalculator = () => {
   return (
     <div className="container">
       <h1 className="text-center my-4">Dashboard Evolution</h1>
+      <LivePlayersMockup />
       {/* <LivePlayers /> */}
       <MoneyCounter />
 
