@@ -410,9 +410,11 @@ body {
 }
 
 .table-container {
-  max-height: 500px;
-  overflow-y: auto;
+  max-height: 400px; /* Begränsar höjden så att man måste scrolla */
   overflow-x: auto;
+  overflow-y: auto;
+  display: block;
+  white-space: nowrap; /* Förhindrar att text radbryts */
   border: 1px solid #ddd;
 }
 
@@ -440,7 +442,7 @@ body {
   color: white;
   white-space: nowrap;
   text-align: center;
-  padding: 12px 15px;
+  padding: 8px;
 }
 
 .financial-report-table td {
@@ -497,10 +499,14 @@ h3 {
 }
 
 @media (max-width: 768px) {
-  .financial-report-table th, .financial-report-table td {
-    font-size: 0.9em;
-    padding: 8px 10px;
+  .financial-report-table th,
+  .financial-report-table td {
+      padding: 5px;
+      font-size: 10px;
   }
+  .table-container {
+    max-height: 300px; /* Ännu mindre på mobil */
+}
 }
 
 @media (max-width: 768px) {
