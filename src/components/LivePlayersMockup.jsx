@@ -3,7 +3,7 @@ import { Card, CardContent, Typography, Box, Chip } from "@mui/material";
 import { motion } from "framer-motion";
 
 const LivePlayersMockup = () => {
-  const [playerCount, setPlayerCount] = useState(81524); // Exempelvärde
+  const [playerCount, setPlayerCount] = useState(97862); // Exempelvärde
 
   // Kontrollera om antalet spelare är över 90 000
   const isHighPlayerCount = playerCount > 90000;
