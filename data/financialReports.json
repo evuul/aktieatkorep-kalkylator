@@ -720,8 +720,8 @@
           {
             "year": 2024,
             "quarter": "Q3",
-            "operatingRevenues": 579.029,
-            "adjustedEBITDA": 570.029,
+            "operatingRevenues": 519.379,
+            "adjustedEBITDA": 415.257,
             "adjustedEBITDAMargin": 71.7,
             "adjustedOperatingProfit": 355.607,
             "adjustedOperatingMargin": 68.5,
@@ -745,6 +745,7 @@
             "year": 2024,
             "quarter": "Q4",
             "operatingRevenues": 533.845,
+            "OtherOperatingRevenues": 91.408,
             "adjustedEBITDA": 454.965,
             "adjustedEBITDAMargin": 72.8,
             "adjustedOperatingProfit": 363.557,
